@@ -59,33 +59,35 @@ func (c Calendar) Draw(f CellDrawFunc) string {
 		maxSize = max(maxSize, len(cellContent))
 	}
 
-	var buffer []string
+	var builder strings.Builder
 	for _, day := range weekDays {
-		buffer = append(buffer, center(day, maxSize), " ")
+		builder.WriteString(center(day, maxSize))
+		builder.WriteRune(' ')
 	}
-	buffer = append(buffer, "\n")
+	builder.WriteRune('\n')
 
 	emptyDays := int(c.FirstDay())
 	for i := 0; i < emptyDays; i++ {
-		buffer = append(buffer, center(" ", maxSize), " ")
+		builder.WriteString(center(" ", maxSize))
+		builder.WriteRune(' ')
 	}
 
 	var i int
 	for i = 0; i < length; i++ {
-		buffer = append(buffer, center(results[i], maxSize))
+		builder.WriteString(center(results[i], maxSize))
 		if (i+emptyDays) % 7 == 6 {
-			buffer = append(buffer, "\n")
+			builder.WriteRune('\n')
 		} else {
-			buffer = append(buffer, " ")
+			builder.WriteRune(' ')
 		}
 	}
 
 	for remain := i + emptyDays; remain % 7 != 0; remain++ {
-		buffer = append(buffer, center(" ", maxSize))
+		builder.WriteString(center(" ", maxSize))
 		if remain % 7 != 6 {
-			buffer = append(buffer, " ")
+			builder.WriteRune(' ')
 		}
 	}
 
-	return strings.Join(buffer, "")
+	return builder.String()
 }
