@@ -14,19 +14,19 @@ func max(i1, i2 int) int {
 
 func center(s string, width int) string {
 	length := len(s)
-	if (width == length){
+	if width == length {
 		return s
 	}
 	padding := (width - length) / 2
 	var builder strings.Builder
-	if (width - length) % 2 == 0 {
+	if (width-length)%2 == 0 {
 		empty := strings.Repeat(" ", padding)
 		builder.WriteString(empty)
 		builder.WriteString(s)
 		builder.WriteString(empty)
 	} else {
 		empty1 := strings.Repeat(" ", padding)
-		empty2 := strings.Repeat(" ", padding + 1)
+		empty2 := strings.Repeat(" ", padding+1)
 		builder.WriteString(empty1)
 		builder.WriteString(s)
 		builder.WriteString(empty2)
@@ -75,16 +75,16 @@ func (c Calendar) Draw(f CellDrawFunc) string {
 	var i int
 	for i = 0; i < length; i++ {
 		builder.WriteString(center(results[i], maxSize))
-		if (i+emptyDays) % 7 == 6 {
+		if (i+emptyDays)%7 == 6 {
 			builder.WriteRune('\n')
 		} else {
 			builder.WriteRune(' ')
 		}
 	}
 
-	for remain := i + emptyDays; remain % 7 != 0; remain++ {
+	for remain := i + emptyDays; remain%7 != 0; remain++ {
 		builder.WriteString(center(" ", maxSize))
-		if remain % 7 != 6 {
+		if remain%7 != 6 {
 			builder.WriteRune(' ')
 		}
 	}
